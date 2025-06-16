@@ -4,6 +4,8 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Date;
+
 @Document(collection = "reviews")
 public class Review {
     @Id
@@ -13,6 +15,7 @@ public class Review {
     private String product;
     private double rating;
     private String feedback;
+    private Date date;
 
     public Review(){}
 
@@ -22,4 +25,5 @@ public class Review {
     public void setProduct(String product){this.product = product;}
     public void setRating(double rating){this.rating = rating;}
     public void setFeedback(String feedback){this.feedback = feedback;}
+    public void setDate(Date date){this.date = date;}
 }
