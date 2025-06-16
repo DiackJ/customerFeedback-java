@@ -3,16 +3,18 @@ package com.springboot.customerfeedback;
 import com.springboot.customerfeedback.Config.EnvLoader;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 @SpringBootApplication
+@EnableMongoRepositories("com.springboot.customerfeedback.Reposittory")
 public class CustomerfeedbackApplication {
+
+	static{
+		EnvLoader.loader();
+	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(CustomerfeedbackApplication.class, args);
-
-		SpringApplication app = new SpringApplication(CustomerfeedbackApplication.class);
-		app.addInitializers(new EnvLoader());
-		app.run(args);
 	}
 
 }
