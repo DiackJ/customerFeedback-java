@@ -16,6 +16,7 @@ public class Review {
 
     public Review(){}
 
+    public void setId(ObjectId id){this.id = id;}
     public void setCustomer(String customer){this.customer = customer;}
     public void setVendor(String vendor){this.vendor = vendor;}
     public void setProduct(String product){this.product = product;}

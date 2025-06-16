@@ -9,7 +9,7 @@ public class ReviewDTO {
 
     public ReviewDTO(){}
 
-    public String getString(){return this.customer;}
+    public String getCustomer(){return this.customer;}
     public String getVendor(){return this.vendor;}
     public String getProduct(){return this.product;}
     public double getRating(){return this.rating;}
