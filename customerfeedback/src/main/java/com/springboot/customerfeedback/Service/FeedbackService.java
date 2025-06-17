@@ -3,9 +3,11 @@ package com.springboot.customerfeedback.Service;
 import com.springboot.customerfeedback.DTO.ReviewDTO;
 import com.springboot.customerfeedback.Model.Review;
 import com.springboot.customerfeedback.Repository.ReviewRepository;
+import org.bson.Document;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -13,6 +15,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.bson.types.ObjectId;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,7 +32,7 @@ public class FeedbackService {
     }
 
     //user can post a product review
-    public Review postReview(ReviewDTO dto){
+    public void postReview(ReviewDTO dto){
         Review review = new Review();
 
         review.setId(new ObjectId());
@@ -50,7 +53,9 @@ public class FeedbackService {
             review.setFeedback(dto.getFeedback());
         }
 
-        return reviewRepository.save(review);
+        review.setDate(new Date());
+
+        reviewRepository.save(review);
     }
 
     //return a page of reviews with optional filtering
@@ -82,6 +87,10 @@ public class FeedbackService {
         List<Review> filteredResults = mongoTemplate.find(filter, Review.class);
         //calculate count of documents to apply to paging. Like if page 1 shows 1-5, page 2 should show 5-10
         long docCount = mongoTemplate.count(filter.skip(-1).limit(-1), Review.class);
+
+        //test mongo connection
+//        List<Document> rawDocs = mongoTemplate.find(filter, Document.class, "reviews");
+//        rawDocs.forEach(System.out::println);
 
         return new PageImpl<>(filteredResults, page, docCount);
     }

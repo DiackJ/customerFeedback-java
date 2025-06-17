@@ -7,8 +7,6 @@ public class EnvLoader{
 
     public static void loader(){
         Dotenv dotenv = Dotenv.configure()
-                .ignoreIfMissing()
-                .directory("./")
                 .filename(".env")
                 .load();
 
